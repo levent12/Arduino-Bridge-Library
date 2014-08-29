@@ -1,0 +1,5 @@
+Bridge			KEYWORD1
+begin			KEYWORD2
+checkConnection	KEYWORD2
+sendData		KEYWORD2
+processSerial	KEYWORD2
