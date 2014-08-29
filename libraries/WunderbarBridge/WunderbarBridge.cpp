@@ -18,6 +18,15 @@ Bridge::Bridge(uint8_t rx_pin, uint8_t tx_pin, int32_t baudrate){
       SoftwareSerial mySerial(_rx_pin, _tx_pin); // RX (default 10), TX (default 11)
 }
 
+//------------------------------------------------------------------------------
+/**
+ *    Initialize Serial port and print welcome message
+ *
+ * \param
+ *
+ * \return True if a Bridge Connection was detected
+ *         False if no answer received from the Bridge
+ */
 bool Bridge::begin()
 {
   /* 115200 is the default baudrate for the Bridge 
@@ -37,6 +46,7 @@ bool Bridge::begin()
   return checkConnection();
 }
 
+//------------------------------------------------------------------------------
 /*
   SerialEvent occurs whenever a new data comes in the
  hardware serial RX.  This routine is run between each
@@ -116,7 +126,6 @@ void Bridge::processSerial(void)
       if (c_crc == down.channel.crc)
       {
         down.packet_ok = true;
-        //digitalWrite(led, LOW); 
       } else 
             down.packet_ok = false;
     
@@ -139,6 +148,14 @@ void Bridge::processSerial(void)
   }
 }
 
+//------------------------------------------------------------------------------
+/**
+ * Sends a packet over the Hardware Serial port (TX)
+ *
+ * \param: byte array with the payload and payload size
+ *
+ * \return 
+ */
 bool Bridge::sendData(uint8_t payload[], int size)
 {
   //prepares the packet
@@ -160,14 +177,20 @@ bool Bridge::sendData(uint8_t payload[], int size)
       mySerial.print(",");
     }
   }
-
   //sends the packet to the UART  
   Serial.write((uint8_t *)outputBuffer, outPacket.length + 4); 
 
   return true;
 }
 
-
+//------------------------------------------------------------------------------
+/**
+ *    Calculate a CRC (16 bits) of a packet
+ *
+ * \params: pointer to the data, data size, initialization word (NULL by default)
+ *
+ * \return: the calculated CRC 
+ */
 uint16_t Bridge::crc16Compute(uint8_t * p_data, int size, uint8_t * p_crc)
 {
   uint32_t i;
@@ -184,9 +207,14 @@ uint16_t Bridge::crc16Compute(uint8_t * p_data, int size, uint8_t * p_crc)
   return crc;
 }
 
-/*
-*params: 
-*/
+//------------------------------------------------------------------------------
+/**
+ *   Creates an Up Data Packet 
+ *
+ * \params: pointer to the payload, payload length, pointer to the output buffer.
+ *
+ * \return: the bridge_comm object 
+ */
 bridge_comm_t Bridge::createUpPacket(uint8_t * payload, int length, uint8_t * outBuffer)
 {
   bridge_comm_t packet;
@@ -212,6 +240,13 @@ bridge_comm_t Bridge::createUpPacket(uint8_t * payload, int length, uint8_t * ou
   return packet;
 }
 
+//------------------------------------------------------------------------------
+/**
+ *   Print the details of a packet in the Software Serial port
+ * \param: A bridge_comm Packet
+ *
+ * \return none
+ */
 void Bridge::dumpPacket(bridge_comm_t packet)
 {
   if (useDebugOutput){
@@ -236,6 +271,15 @@ void Bridge::dumpPacket(bridge_comm_t packet)
   } 
 }
 
+//------------------------------------------------------------------------------
+/**
+ * Sends a PING command to the Bridge and wait for the response
+ *
+ * \param
+ *
+ * \return True if gets the ACK from the Bridge
+ *         False if no command received 
+ */
 bool Bridge::checkConnection()
 {
   Serial.write(BRIDGE_COMM_PING);  
@@ -248,9 +292,6 @@ bool Bridge::checkConnection()
     }
     delay(10);
   }
-
-  //mySerial.println(commandReceived);//******************debug
-  //mySerial.println(down.channel.command);  //******************debug
 
   if (!commandReceived || (down.channel.command != BRIDGE_COMM_ACK))
   {
