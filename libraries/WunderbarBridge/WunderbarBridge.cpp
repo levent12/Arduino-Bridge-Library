@@ -1,8 +1,10 @@
 #include "Arduino.h"
 #include "WunderbarBridge.h"
 
+
 #include <SoftwareSerial.h>
 //#define BRIDGE_DEBUG true
+
 
 SoftwareSerial mySerial(10, 11);
 
@@ -15,7 +17,7 @@ Bridge::Bridge(uint8_t rx_pin, uint8_t tx_pin, int32_t baudrate){
       _rx_pin = rx_pin;
       _tx_pin = tx_pin;
       useDebugOutput = true;
-      SoftwareSerial mySerial(_rx_pin, _tx_pin); // RX (default 10), TX (default 11)
+      SoftwareSerial mySerial(_rx_pin, _tx_pin); // RX (default 10), TX (default 11)*/
 }
 
 //------------------------------------------------------------------------------
@@ -34,6 +36,7 @@ bool Bridge::begin()
   Serial.begin(115200); 
 
   if (useDebugOutput){
+    //SoftwareSerial mySerial(_rx_pin, _tx_pin); // RX (default 10), TX (default 11)
     //initialize Soft Serial UART: 
     mySerial.begin(_baudrate);
 
@@ -42,7 +45,6 @@ bool Bridge::begin()
                           \n\r Arduino / WunderBar-Bridge lib \
                           \n\r-------------------------------\n\r");
   } 	
-
   return checkConnection();
 }
 
@@ -238,6 +240,24 @@ bridge_comm_t Bridge::createUpPacket(uint8_t * payload, int length, uint8_t * ou
   outBuffer[length + 3] = (packet.crc >> 8);
 
   return packet;
+}
+
+//------------------------------------------------------------------------------
+/**
+ *   Returns a struct with received payload
+ * \param: A pointer to the array where to put the data
+ *
+ * \return none
+ */
+bridge_payload_t Bridge::getData(void)
+{
+  bridge_payload_t rx_payload;
+
+  memcpy(rx_payload.payload, down.channel.payload, down.channel.length);
+  rx_payload.length = down.channel.length; 
+  newData = false;
+
+  return rx_payload;
 }
 
 //------------------------------------------------------------------------------

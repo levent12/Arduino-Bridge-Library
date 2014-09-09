@@ -2,8 +2,6 @@
 ** Author: Daniel Mancuso
 ** Relayr.io
 */
-//http://arduino.cc/en/Hacking/LibraryTutorial
-
 #include "Arduino.h"
 #include <SoftwareSerial.h>
 
@@ -33,6 +31,14 @@ typedef struct
   uint16_t  crc;
 } bridge_comm_t;
 
+typedef struct
+{
+  uint8_t length;
+  uint8_t payload[PAYLOAD_MAX_LENGTH];
+} bridge_payload_t;
+
+//SoftwareSerial mySerial(uint8_t, uint8_t);
+
 
 class Bridge
 {
@@ -41,22 +47,24 @@ class Bridge
     Bridge(void); //No Debug output
 		Bridge(const uint8_t rx_pin, const uint8_t tx_pin, int32_t baudrate); //Use debug output
 
-    //public methods
+    //public methods:
     bool begin();
     bool sendData(uint8_t payload[], int size);
     void processSerial(void);
     bool checkConnection(void);
-    //variables
+    bridge_payload_t getData(void);
+
+    //variables:
     bool newData;
     bool useDebugOutput;
 
 	private:
-    //methods
+    //methods:
 		uint16_t crc16Compute(uint8_t * p_data, int size, uint8_t * p_crc);
 		void dumpPacket(bridge_comm_t packet);
 		bridge_comm_t createUpPacket(uint8_t * payload, int length, uint8_t * outBuffer);
 
-    //variables
+    //variables:
     bool commandReceived;
 
     int32_t   _baudrate;
