@@ -1,3 +1,11 @@
+/* 
+	*** Simple example that shows how to use the Wunderbar Bridge module
+    *** to connect an Ardino to the relayr open sensor cloud.
+
+    The application wait for receiving data from the Bridge and shows the
+    received value in a Grove Module
+ */
+
 #include <SoftwareSerial.h>
 #include <WunderbarBridge.h>
 #include <LED_Bar.h>
@@ -31,6 +39,7 @@ void setup() {
 	bar.setLevel(0);
 }
 
+/* Main Loop */
 void loop() {
 	 
 	static uint8_t dataOut[2] = {1, 2};
@@ -42,7 +51,7 @@ void loop() {
 	
 		digitalWrite(led, HIGH);
 
-		//Use the payload[1] to set the LED_BAR level
+		/* Use the payload[1] to set the LED_BAR level */
 		bar.setLevel(rxPayload.payload[1]);	
 
     	delay(1000);
@@ -57,12 +66,14 @@ void loop() {
 		bridge.sendData(dataOut, 2);
 
 		digitalWrite(led, HIGH);
-		delay(2000);
+		delay(1000);
 		digitalWrite(led, LOW);
 	}
 
 }
 
+/* the serialEvent() handler is called on every received data 
+from the serial port. */
 void serialEvent(){
 	bridge.processSerial();
 }
