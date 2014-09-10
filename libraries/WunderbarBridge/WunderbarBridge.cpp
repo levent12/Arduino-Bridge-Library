@@ -1,3 +1,8 @@
+/* Library for connect Arduino to the Wunderbar Bridge Module 
+** Author: Daniel Mancuso
+** Relayr.io
+*/
+
 #include "Arduino.h"
 #include "WunderbarBridge.h"
 

@@ -10,17 +10,20 @@ const int DEBUG_RX = 10;
 const int LED_BAR_CLK = 13;
 const int LED_BAR_DI = 12;
 
+/*  Config the bridge module, the 3rd parameter is the baudrate,
+    which has to be the same used in the PC serial monitor application*/
 Bridge bridge = Bridge(DEBUG_RX, DEBUG_TX, 115200); 
 
-LED_Bar bar(LED_BAR_CLK, LED_BAR_DI);   // config Io here, (clk, dio)
+/*  Example of using the Grove LED_BAR module to show the received value 
+	from the "open sensor cloud".
+*/
+LED_Bar bar(LED_BAR_CLK, LED_BAR_DI);   // config IOs here, (clk, dio)
 
 const int led = 7;
 const int button = 2;
-const int vibrator = 4;
 
 void setup() {
 	pinMode(led, OUTPUT);
-	pinMode(vibrator, OUTPUT);
 	pinMode(button, INPUT);
 	  
 	bridge.begin();
@@ -38,14 +41,12 @@ void loop() {
 		rxPayload = bridge.getData();
 	
 		digitalWrite(led, HIGH);
-		digitalWrite(vibrator, HIGH);
 
 		//Use the payload[1] to set the LED_BAR level
 		bar.setLevel(rxPayload.payload[1]);	
 
     	delay(1000);
 
-    	digitalWrite(vibrator, LOW);
     	digitalWrite(led, LOW);
 	}
 
