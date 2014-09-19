@@ -35,7 +35,7 @@ There are two methods of installing the library:
 
 In order to allow the *Bridge Module* to communicate with the *Arduino* over [UART](http://en.wikipedia.org/wiki/Universal_asynchronous_receiver/transmitter), it is necessary to flash the Bridge UART Firmware.
 
-Follow our [instructions for flashing a Sensor Module](http://2) in order to replace the existing firmware on the Grove/Bridge module with the compatible firmware for connecting to Arduino.
+Follow our [instructions for flashing a Sensor Module](https://developer.relayr.io/documents/HowTos/Flashing) in order to replace the existing firmware on the Grove/Bridge module with the compatible firmware for connecting to Arduino.
 
 The new firmware file is the ["sensor\_bridge\_fw\_UART.hex"](https://github.com/relayr/Arduino-Bridge-Library/blob/master/libraries/WunderbarBridge/sensor_bridge_fw_UART.hex) file, located inside the */libraries* folder.
 
