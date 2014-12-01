@@ -45,18 +45,19 @@ void loop() {
 //     Serial1.write(c);
      bridge.sendData(dataout2,sizeof(dataout2));
   }
-}
-
-/*  if(Serial1.available())
+  if(Serial1.available())
   {
      bridge.processSerial();
-  }*/
+  }
+}
 
 // Same as Serial1.available() 
+/*
 void serialevent1()
 {
+  Serial.print("hi");
   bridge.processSerial();
-}
+}*/
 
 
 
