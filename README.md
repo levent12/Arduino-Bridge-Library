@@ -37,7 +37,7 @@ In order to allow the *Bridge Module* to communicate with the *Arduino* over [UA
 
 Follow our [instructions for flashing a Sensor Module](https://developer.relayr.io/documents/HowTos/Flashing) in order to replace the existing firmware on the Grove/Bridge module with the compatible firmware for connecting to Arduino.
 
-The new firmware file is the ["sensor\_bridge\_fw\_UART.hex"](https://github.com/relayr/Arduino-Bridge-Library/blob/master/libraries/WunderbarBridge/sensor_bridge_fw_UART.hex) file, located inside the */libraries* folder.
+The new firmware file is the ["sensor\_bridge\_fw\_UART.hex"](https://github.com/relayr/Arduino-Bridge-Library/blob/master/libraries/WunderbarBridgeUno/sensor_bridge_fw_UART.hex) file, located inside the */libraries* folder.
 
 
 ### 3. Connecting  the Bridge Module to Arduino
