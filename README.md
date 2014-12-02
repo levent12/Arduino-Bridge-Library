@@ -19,7 +19,7 @@ Below is a step by step tutorial of how to install and use the repository as wel
 
 ### 1. Installing the Library
 
-There are two methods of installing the library. In both method, the desired library should be selected according to the Arduino board you are planning on using.
+There are two methods of installing the library. In both methods, the desired library should be selected according to the Arduino board you are planning on using.
 
 #### Method 1: Importing the *zip* file
 
