@@ -19,7 +19,7 @@ Below is a step by step tutorial of how to install and use the repository as wel
 
 ### 1. Installing the Library
 
-There are two methods of installing the library. In both methods, the desired library should be selected according to the Arduino board you are planning on using.
+There are two methods of installing the library. In both method, the desired library should be selected according to the Arduino board you are planning on using.
 
 #### Method 1: Importing the *zip* file
 
@@ -56,7 +56,7 @@ The new firmware file is the ["sensor\_bridge\_fw\_UART.hex"](https://github.com
 
 ### 3. Connecting  the Bridge Module to Arduino
 
-##### Connection to the Bridge - *ArduinoUno*
+#### *ArduinoUno*
 
 The easiest way of connecting the two is using the [*"Grove Servo cable"*](http://www.seeedstudio.com/depot/grove-branch-cable-for-servo5pcs-pack-p-753.html?cPath=178_179) from Seedstudio. Below is the list of connections defined by Pin number / Name:
 
@@ -67,7 +67,7 @@ The easiest way of connecting the two is using the [*"Grove Servo cable"*](http:
 * **3 - Vcc** ---------> **5 Volts**
 * **4  - Gnd** ---------> **GND**
 
-##### Connection to the Bridge - *ArduinoMega*
+#### *ArduinoMega*
 
 Since the ArduinoMega has multiple serial ports, you can connect the Bridge module to any of them:
 
@@ -78,7 +78,9 @@ Since the ArduinoMega has multiple serial ports, you can connect the Bridge modu
 * **3 - Vcc** ---------> **5 Volts**
 * **4  - Gnd** ---------> **GND**
 
-##### Debugging connection to the PC serial port - *ArduinoUno*
+### 4. Debugging Connection to the PC Serial Port 
+
+#### *ArduinoUno*
 
 In order to debug the application, and see, for instance, what data is coming from the cloud, it could be very helpful to connect a second serial port to the *Arduino*. For this, the library uses the *Software Serial Library* (which comes with the *Arduino IDE*, no need to import it). 
 
@@ -92,7 +94,7 @@ Any USB-to-Serial converter such as [this](http://www.amazon.com/PL2303HX-RS232-
 
 **Note:** The example sketch defines *pins* 10 & 11 as the connecting ones to the *Software Serial* port, however, this can be changed to any available digital pin.
 
-##### Debugging connection to the PC serial port - *ArduinoMega*
+#### *ArduinoMega*
 
 With the ArduinoMega you could use any port for debugging. The default debugging port in 0 as to allow you to debug via your computer:
 
@@ -105,9 +107,9 @@ With the ArduinoMega you could use any port for debugging. The default debugging
 
 ----------
 
-### 4. Viewing The URAT Output
+### 5. Viewing The URAT Output
 
-##### *ArduinoUno*
+#### *ArduinoUno*
 
 The output sent over UART can be seen with any **Serial Monitor Software**. Below we've listed two examples of Serial monitors which could be used for this purpose:
 
@@ -117,7 +119,7 @@ List the *tty* devices under */dev* to get the correct name base.
 
 * For *Windows*, a common serial monitor is ["PUTTY"](http://www.putty.org/). [Realterm](http://realterm.sourceforge.net/) also provides useful funcionalities. You may refer to their respective documentation for configuration options. See [PUTTY documentation](http://www.chiark.greenend.org.uk/~sgtatham/putty/docs.html ) and [Realterm documentation](http://realterm.sourceforge.net/).
 
-##### *ArduinoMega*
+#### *ArduinoMega*
 
 In order to view the output for the ArduinoMega you could use the Serial Monitor from your Arduino without the need for an external software.
 
@@ -125,7 +127,7 @@ In order to view the output for the ArduinoMega you could use the Serial Monitor
 ## Using the library
 
 
-##### *ArduinoUno*
+#### *ArduinoUno*
 
 1. Include the *SoftwareSerial* and *WunderbarBridge* headers:
 
@@ -152,7 +154,7 @@ The received payload can be retrieved with the *getData()* method which returns 
 		uint8_t dataOut[] = {1, 2, 3};
 		bridge.sendData(dataOut, sizeof(dataOut));
 
-##### *ArduinoMega*
+#### *ArduinoMega*
 
 1. Include the *WunderbarBridge* header:
 
