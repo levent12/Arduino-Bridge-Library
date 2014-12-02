@@ -78,6 +78,10 @@ Since the ArduinoMega has multiple serial ports, you can connect the Bridge modu
 * **3 - Vcc** ---------> **5 Volts**
 * **4  - Gnd** ---------> **GND**
 
+
+----------
+
+
 ### 4. Debugging Connection to the PC Serial Port 
 
 #### *ArduinoUno*
