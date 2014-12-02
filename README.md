@@ -30,7 +30,7 @@ There are two methods of installing the library. In both methods, the desired li
 
 #### Method 2: Using *git clone*
 
-* Close the *Arduino IDE*.
+* Clone the *Arduino IDE*.
 * If you have **git** installed just go to the Arduino folder and perform a 
 
 	`git clone https://github.com/relayr/Arduino-Bridge-Library.git`.
