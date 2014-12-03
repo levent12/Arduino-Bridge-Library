@@ -111,7 +111,7 @@ With the ArduinoMega you could use any port for debugging. The default debugging
 
 ----------
 
-### 5. Viewing The URAT Output
+### 5. Viewing The UART Output
 
 #### *ArduinoUno*
 
