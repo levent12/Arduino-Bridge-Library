@@ -1,6 +1,6 @@
-/* 
-    *** Simple example that shows how to use the Wunderbar Bridge module
-    *** to connect an Ardino to the relayr open sensor cloud.
+/*
+	*** This example only works with the Arduino Mega library as it uses multiple serial communication.
+    *** Simple example that shows how to use the Wunderbar Bridge module to connect an Ardino to the relayr open sensor cloud.
 
     The application uses Serial communication to send data from the serial monitor to the Arduino then to the bridge module and finally to the relayr open sensor cloud,
     and receivs data from the cloud back to the bridge to the Arduino again. You can see the data sent/received through the serial monitor and the developer dashboard.
