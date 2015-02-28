@@ -1,4 +1,4 @@
-/* Library for connect Arduino to the Wunderbar Bridge Module 
+/* Library for connect Arduino to the Wunderbar Bridge Module
 ** Author: Daniel Mancuso
 ** Relayr.io
 */
@@ -36,20 +36,20 @@ Bridge::Bridge(uint8_t rx_pin, uint8_t tx_pin, int32_t baudrate){
  */
 bool Bridge::begin()
 {
-  /* 115200 is the default baudrate for the Bridge 
+  /* 115200 is the default baudrate for the Bridge
     (could be changed in the BLE Config char)*/
-  Serial.begin(115200); 
+  Serial.begin(115200);
 
   if (useDebugOutput){
     //SoftwareSerial mySerial(_rx_pin, _tx_pin); // RX (default 10), TX (default 11)
-    //initialize Soft Serial UART: 
+    //initialize Soft Serial UART:
     mySerial.begin(_baudrate);
 
   	mySerial.println("\n\r\n\r------------------------------- \
                           \n\r relayr - bring things to life  \
                           \n\r Arduino / WunderBar-Bridge lib \
                           \n\r-------------------------------\n\r");
-  } 	
+  }
   return checkConnection();
 }
 
@@ -66,12 +66,12 @@ void Bridge::processSerial(void)
   while (Serial.available())
   {
     // get the new byte:
-    uint8_t inChar = (uint8_t) Serial.read(); 
+    uint8_t inChar = (uint8_t) Serial.read();
 
     //mySerial.println(inChar);//******************debug
 
     down.rec_bytes++;
-    
+
     if (down.rec_bytes == 1) //1: command
     {
       down.channel.command = inChar;
@@ -98,44 +98,44 @@ void Bridge::processSerial(void)
             break;
 
           case BRIDGE_COMM_PING:
-            Serial.write(BRIDGE_COMM_ACK);  
+            Serial.write(BRIDGE_COMM_ACK);
             down.rec_bytes = 0;
             commandReceived = true;
-            break;  
+            break;
 
           case BRIDGE_COMM_RCV_FROM_BLE:
-            break;  
+            break;
 
           default:
             down.rec_bytes = 0;
             down.packet_ok = false;
       }
     }
-    
-    if (down.rec_bytes == 2) 
+
+    if (down.rec_bytes == 2)
         down.channel.length = inChar; //2: Lenght
-    
+
     if ((down.rec_bytes > 2) && (down.rec_bytes <= (down.channel.length + 2)))  //3:Start Payload
     {
       down.channel.payload[down.payload_c] = inChar;
       down.payload_c++;
     }
-    
-    if (down.rec_bytes == down.channel.length + 3) 
+
+    if (down.rec_bytes == down.channel.length + 3)
         down.channel.crc = inChar; //CRC16 LSB
-    
+
     if (down.rec_bytes == down.channel.length + 4)  //CRC16 MSB
     {
       down.channel.crc += (inChar << 8);
-      
+
       uint16_t c_crc = crc16Compute((uint8_t *) &down.channel, down.channel.length+2, NULL);
-      
+
       if (c_crc == down.channel.crc)
       {
         down.packet_ok = true;
-      } else 
+      } else
             down.packet_ok = false;
-    
+
       commandReceived = true;
       newData = true;
 
@@ -146,10 +146,10 @@ void Bridge::processSerial(void)
       if (useDebugOutput){
         mySerial.println("\n\n\r<<<== Packet received:");
 
-        if (down.packet_ok) 
+        if (down.packet_ok)
             mySerial.print("CRC OK");
-          
-        dumpPacket(down.channel); 
+
+        dumpPacket(down.channel);
       }
     }
   }
@@ -161,7 +161,7 @@ void Bridge::processSerial(void)
  *
  * \param: byte array with the payload and payload size
  *
- * \return 
+ * \return
  */
 bool Bridge::sendData(uint8_t payload[], int size)
 {
@@ -170,22 +170,22 @@ bool Bridge::sendData(uint8_t payload[], int size)
 
   if (!_bridgeConnected){
     if (!checkConnection()) return false;
-  } 
+  }
 
    // memcpy((char *) &outPacket, outputBuffer, sizeof(outPacket));//outPacket.length + 4);
-  if (useDebugOutput){    
+  if (useDebugOutput){
     mySerial.println("\n\r==>>> OutPacket:");
     dumpPacket(outPacket);
 
-    mySerial.print("output Buffer: "); 
+    mySerial.print("output Buffer: ");
     for (char i=0; i < outPacket.length+4; i++)
     {
       mySerial.print(outputBuffer[i], HEX);
       mySerial.print(",");
     }
   }
-  //sends the packet to the UART  
-  Serial.write((uint8_t *)outputBuffer, outPacket.length + 4); 
+  //sends the packet to the UART
+  Serial.write((uint8_t *)outputBuffer, outPacket.length + 4);
 
   return true;
 }
@@ -196,7 +196,7 @@ bool Bridge::sendData(uint8_t payload[], int size)
  *
  * \params: pointer to the data, data size, initialization word (NULL by default)
  *
- * \return: the calculated CRC 
+ * \return: the calculated CRC
  */
 uint16_t Bridge::crc16Compute(uint8_t * p_data, int size, uint8_t * p_crc)
 {
@@ -210,17 +210,17 @@ uint16_t Bridge::crc16Compute(uint8_t * p_data, int size, uint8_t * p_crc)
     crc ^= (uint8_t)(crc & 0xff) >> 4;
     crc ^= (crc << 8) << 4;
     crc ^= ((crc & 0xff) << 4) << 1;
-  }    
+  }
   return crc;
 }
 
 //------------------------------------------------------------------------------
 /**
- *   Creates an Up Data Packet 
+ *   Creates an Up Data Packet
  *
  * \params: pointer to the payload, payload length, pointer to the output buffer.
  *
- * \return: the bridge_comm object 
+ * \return: the bridge_comm object
  */
 bridge_comm_t Bridge::createUpPacket(uint8_t * payload, int length, uint8_t * outBuffer)
 {
@@ -233,7 +233,7 @@ bridge_comm_t Bridge::createUpPacket(uint8_t * payload, int length, uint8_t * ou
 
   outBuffer[0] = packet.command;
   outBuffer[1] = packet.length;
-  
+
   for (char i = 2; i < length + 2; i++)
   {
     outBuffer[i] = packet.payload[i-2];
@@ -259,7 +259,7 @@ bridge_payload_t Bridge::getData(void)
   bridge_payload_t rx_payload;
 
   memcpy(rx_payload.payload, down.channel.payload, down.channel.length);
-  rx_payload.length = down.channel.length; 
+  rx_payload.length = down.channel.length;
   newData = false;
 
   return rx_payload;
@@ -288,12 +288,12 @@ void Bridge::dumpPacket(bridge_comm_t packet)
     {
       mySerial.print(packet.payload[i-2], HEX);
       mySerial.print(", ");
-    }  
+    }
 
     mySerial.print("\n\rCRC: ");
     mySerial.print(packet.crc, HEX);
     mySerial.print("\n\r-----------\n\r");
-  } 
+  }
 }
 
 //------------------------------------------------------------------------------
@@ -303,12 +303,12 @@ void Bridge::dumpPacket(bridge_comm_t packet)
  * \param
  *
  * \return True if gets the ACK from the Bridge
- *         False if no command received 
+ *         False if no command received
  */
 bool Bridge::checkConnection()
 {
-  Serial.write(BRIDGE_COMM_PING);  
-  
+  Serial.write(BRIDGE_COMM_PING);
+
   for (uint8_t i = 0; i < 10; ++i)
   {
     if (Serial.available()){
@@ -325,10 +325,10 @@ bool Bridge::checkConnection()
        Arduino TX ==>> Bridge RX (white wire)\n\r\
        Arduino RX ==>> Bridge TX (Yellow wire)");
     }
-   _bridgeConnected = false;        
+   _bridgeConnected = false;
    return false;
   }
   _bridgeConnected = true;
   return true;
-}  
+}
 
