@@ -166,7 +166,7 @@ void Bridge::processSerial(void)
 bool Bridge::sendData(uint8_t payload[], int size)
 {
   //prepares the packet
-  bridge_comm_t outPacket = createUpPacket(payload, sizeof(payload), outputBuffer);
+  bridge_comm_t outPacket = createUpPacket(payload, size, outputBuffer);
 
   if (!_bridgeConnected){
     if (!checkConnection()) return false;
