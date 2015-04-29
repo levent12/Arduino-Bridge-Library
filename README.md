@@ -200,12 +200,13 @@ The received payload can be retrieved with the *getData()* method which returns 
 To get a bit more insight into using the library, have a look at the [Cloud Connection Example ](
 	https://github.com/relayr/Arduino-Bridge-Library/blob/master/libraries/WunderbarBridgeMega/examples/BridgeCloudConnection/BridgeCloudConnection.ino)
 
-## Testing the connection:
-1. The bridge module has to be re-onboarded after a firmware update.[@Dana: link?]
-2. To verify if the bridge module is connected to the Master, you can test it with the "TURN ON LED" command in the Dashboard Settings panel of your bridge module. If the LED turns on for about 5 seconds, the module is listening for commands from the cloud and it will be able to send data too.
+## Testing the connection between the Bridge Module and the Master Module:
+
+1. The Bridge Module has to be onboarded again after a [firmware change](http://https://developer.relayr.io/documents/HowTos/Flashing).
+2. To verify that the Bridge Module is connected to the Master Module, simply initiate the  "TURN ON LED" command in the module's 'Settings' panel on the Developer Dashboard. If the LED turns on for about 5 seconds, the module is listening for commands from the cloud and  will also be able to send data.
 3. Go to Device activity and paste the following command:
 ` {"path":"", "command":"down_ch_payload","value":[1,2,3]} `
-Where [1,2,3] is the raw data sent to the bridge module (payload).
+Where [1,2,3] is the raw data sent to the bridge module (the payload).
 
 
 ----------
