@@ -10,7 +10,7 @@ int count = 0;   // counter for buffer array
 
 Bridge bridge = Bridge(115200);
 static bridge_payload_t rxPayload;
-static uint8_t dataout[7];
+static uint8_t dataout[12];
 
 void setup()
 {
@@ -35,7 +35,7 @@ void loop()
     }
 
     //copy the first 7 bytes from our rfid reading to our dataout array
-    memcpy(dataout, buffer, 7);
+    memcpy(dataout, buffer, 12);
     Serial.write(buffer, sizeof(buffer));           // if no data transmission ends, write buffer to hardware serial port
     //send data to the cloud
     bridge.sendData(dataout, sizeof(dataout));
