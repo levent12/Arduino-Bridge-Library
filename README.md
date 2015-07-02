@@ -47,7 +47,7 @@ There are two methods of installing the library. In both method, the desired lib
 
 In order to allow the *Bridge Module* to communicate with the *Arduino* over [UART](http://en.wikipedia.org/wiki/Universal_asynchronous_receiver/transmitter), it is necessary to flash the Bridge UART Firmware.
 
-Follow our [instructions for flashing a Sensor Module](https://developer.relayr.io/documents/HowTos/Flashing) in order to replace the existing firmware on the Grove/Bridge module with the compatible firmware for connecting to Arduino.
+Follow our [instructions for flashing a Sensor Module](https://developer.relayr.io/documents/Hardware/Flashing) in order to replace the existing firmware on the Grove/Bridge module with the compatible firmware for connecting to Arduino.
 
 The new firmware file is the ["sensor\_bridge\_fw\_UART.hex"](https://github.com/relayr/Arduino-Bridge-Library/blob/master/libraries/WunderbarBridgeUno/sensor_bridge_fw_UART.hex) file, located inside the */libraries* folder.
 
@@ -202,7 +202,7 @@ To get a bit more insight into using the library, have a look at the [Cloud Conn
 
 ## Testing the connection between the Bridge Module and the Master Module:
 
-1. The Bridge Module has to be onboarded again after a [firmware change](http://https://developer.relayr.io/documents/HowTos/Flashing).
+1. The Bridge Module has to be onboarded again after a [firmware change](http://https://developer.relayr.io/documents/Hardware/Flashing).
 2. To verify that the Bridge Module is connected to the Master Module, simply initiate the  "TURN ON LED" command in the module's 'Settings' panel on the Developer Dashboard. If the LED turns on for about 5 seconds, the module is listening for commands from the cloud and  will also be able to send data.
 3. Go to Device activity and paste the following command:
 ` {"path":"", "command":"down_ch_payload","value":[1,2,3]} `
