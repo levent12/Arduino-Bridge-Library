@@ -8,7 +8,7 @@ This repository contains the [WunderBarBridgeMega](https://github.com/relayr/Ard
 Boards such as the **[Arduino Mega](http://arduino.cc/en/Main/arduinoBoardMega)** have multiple hardware serial ports. four ports in total. You can set your debug/bridge connection port to be any of the 4 ports. The same goes for the bridge module. You are able to see the data sent and received via the Arduino default serial monitor 
 when the debug port is set to 0, without the need for an external application. 
 
-![Picture of the example](assets/arduinoBridge.gif)
+![Picture of the example](README/arduinoBridge.gif)
 
 ## Getting Started
 
