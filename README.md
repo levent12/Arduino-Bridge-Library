@@ -113,7 +113,7 @@ Include the WunderbarBridge header and instantiate the Bridge class to use:
 	
 	uint8_t dataOut[] = {1, 2, 3};
 	bridge.sendData(dataOut, sizeof(dataOut));
-<code>
+</code>
 
 #### Your code should look something like this:
 <code>
