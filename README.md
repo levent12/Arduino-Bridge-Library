@@ -46,7 +46,7 @@ Below is a step by step tutorial of how to install and use the repository as wel
         <li>Copy the "sensor_bridge_fw_UART.hex" form /Arduino/libraries/WunderbarBridgeMega onto your Phone</li>
         <li>Start the Manager app, select the GroveConnector and activate the BLE direct Connection mode(To do so simply swipe to the left and activate BLE mode)</li>
         <li>Select 'Update Firmware' and choose the option to 'select from folder'</li>
-        <li>Place the Bridge Modul in <i>firmware update mode</i>. You can do this by pressing the button on the module and holding it for 3 seconds. The LED will be constantly on when <i>firmware update mode</i>is activated.</li>
+        <li>Place the Bridge Module in <i>firmware update mode</i>. You can do this by pressing the button on the module and holding it for 3 seconds. The LED will be constantly on when <i>firmware update mode</i>is activated.</li>
         <li>Follow the instructions in the app to flash the firmware</li>
     </ol>
 </p>
